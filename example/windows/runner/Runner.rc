@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "Demonstrates how to use the win_toast plugin." "\0"
+            VALUE "CompanyName", "com.example.coba" "\0"
+            VALUE "FileDescription", "WinToastExample" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "win_toast_example" "\0"
+            VALUE "InternalName", "WinToastExample" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2021 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "win_toast_example.exe" "\0"
-            VALUE "ProductName", "win_toast_example" "\0"
+            VALUE "ProductName", "WinToastExample" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -2,15 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mixin_logger/mixin_logger.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 import 'package:win_toast/win_toast.dart';
 
-void main() async {
-  final dir = await getApplicationDocumentsDirectory();
-  final logPath = p.join(dir.path, 'log');
-  await initLogger(logPath);
-  i('logPath: $logPath');
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await WinToast.instance().initialize(
+    aumId: 'com.example.coba',
+    displayName: 'Example Application',
+    iconPath: '',
+    clsid: '936C39FC-6BBC-4A57-B8F8-7C627E401B2F',
+  );
   runApp(const MyApp());
 }
 
@@ -29,20 +30,14 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    scheduleMicrotask(() async {
-      final ret = await WinToast.instance().initialize(
-        aumId: 'one.mixin.WinToastExample',
-        displayName: 'Example Application',
-        iconPath: '',
-        clsid: '936C39FC-6BBC-4A57-B8F8-7C627E401B2F',
-      );
-      assert(ret);
-      setState(() {
-        _initialized = ret;
-      });
-    });
+    initialize();
     WinToast.instance().setActivatedCallback((event) {
       i('onNotificationActivated: $event');
+      i('event');
+      final arg = Uri.splitQueryString(event.argument);
+      print(arg['action']);
+      print(arg['conversationId']);
+      i('event');
       showDialog(
           context: _navigatorKey.currentState!.context,
           builder: (context) {
@@ -79,6 +74,12 @@ class _MyAppState extends State<MyApp> {
               );
             });
       });
+    });
+  }
+
+  Future<void> initialize() async {
+    setState(() {
+      _initialized = true;
     });
   }
 
@@ -131,7 +132,8 @@ class _MainPageState extends State<MainPage> {
 </toast>
             """;
             try {
-              await WinToast.instance().showCustomToast(xml: xml);
+              await WinToast.instance()
+                  .showCustomToast(xml: xml, tag: 'NOTIF', group: 'hello');
             } catch (error, stacktrace) {
               i('showCustomToast error: $error, $stacktrace');
             }

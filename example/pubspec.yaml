@@ -31,9 +31,11 @@ flutter:
 
 msix_config:
   display_name: WinToastExample
-  identity_name: one.mixin.WinToastExample
+  identity_name: com.example.coba
+  build_windows: true
+  debug: false
+  logo_path: assets/image.png
   toast_activator:
-    clsid: "936C39FC-6BBC-4A57-B8F8-7C627E401B2F"
-    arguments: "-ToastActivated"
-    display_name: "Example Application"
+    clsid: 936C39FC-6BBC-4A57-B8F8-7C627E401B2F
+    display_name: "WinToastExample"
   msix_version: 1.0.4.0
